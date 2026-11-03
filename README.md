@@ -1,6 +1,6 @@
-================
-mdev like a boss
-================
+# ================
+# mdev like a boss
+# ================
 
 A stash for notes, scripts and configs
 for systems running `mdev` as a `udev` replacement.
