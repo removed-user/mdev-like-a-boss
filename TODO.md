@@ -4,7 +4,7 @@
 # Uevent helper
 > A Uevent helper listens on a netlink (kernel) socket... 
 Then runs a set/specified command for each time the kernel notifies it
-Which happens on hotplug events. 
+> Which happens on hotplug events. 
 
 - nldev
     - > is a known uevent helper
