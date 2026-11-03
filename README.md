@@ -93,6 +93,8 @@ The input configuration is not the same as with evdev, we will no longer use 'In
 Keymaps
 =======
 
+https://pci-ids.ucw.cz/
+
 A second repo will be created for keymap utils... that's not part of mdev, but is part of udev, and - as such will be fulfilled by other tools.
 
 One of udev's features is config keymaps when it detects a specified vendor.
@@ -139,13 +141,6 @@ you need;
 - from LVFS
 - fwupd
 - and... one source I don't remember off the top of my head? maybe add it later. 
-
-
-You can generate proper setkeycodes commands from udev's sources with ``get-keys.awk`` script. like::
-
-        awk -f keymaps/get-keys.awk /usr/include/linux/input.h /PATH/TO/UDEV/SOURCE/DIR/src/keymap/keymaps/NAME
-
-To make life easier, ``keymap`` dir contain already generated scripts from udev-182's keymaps files. All what you need is to put ``/opt/mdev/keymaps/NAME.sh`` into one of your startup scripts.
 
 Preserve/rename interfaces names
 =========================
