@@ -9,11 +9,13 @@
 > Which happens on hotplug events. 
 
 - nldev
-    - > is a known uevent helper
+    - is a known uevent helper
 - busybox
-    - The original mdev-like-a-boss repo pointed to `busybox as something with a uevent helper also
-Thirdly there is the kernel config Item
+    - The original mdev-like-a-boss repo pointed to `busybox` as something with a uevent helper also
+
 - CONFIG_UEVENT_HELPER
+    - Thirdly there is the kernel config Item
+
 
 I'm not entirely sure
 A: which is which - 
