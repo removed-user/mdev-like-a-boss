@@ -1,0 +1,23 @@
+
+## ORIGINAL INSTALL GUIDE DONT FOLLOW
+
+
+- Clone repo as root to /opt/mdev::
+
+        git clone https://github.com/removed-user/mdev-like-a-boss.git /opt/mdev
+
+- Copy `/opt/mdev/mdev.init` to `/etc/init.d/mdev`, replace the original one if exist, add exec bit and add to sysinit runlevel::
+        
+        cp /opt/mdev/mdev.init /etc/init.d/mdev
+        chmod 700 /etc/init.d/mdev
+        rc-update add mdev sysinit
+
+- Remove udev from sysinit runlevel (it can be udev or udevd, depends if Gentoo or Funtoo)::
+
+        rc-update del udev sysinit
+
+- Copy or symlink ``/opt/mdev/mdev.conf`` to ``/etc/mdev.conf``::
+
+        ln -sf /opt/mdev/mdev.conf /etc/mdev.conf
+
+- Now you can test mdev.
