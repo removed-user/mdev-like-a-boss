@@ -123,7 +123,7 @@ from:
 or 
     - busybox's iproute2 
 
-`sesettle-nics` creates a file 
+`settle-nics` creates a file 
 `/etc/mactab`
 consisting of detected interfaces
 of the following types:
