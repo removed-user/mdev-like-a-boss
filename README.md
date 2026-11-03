@@ -119,6 +119,27 @@ Knowing what keymap item to add a missing macro is odd
 
 In order to make your special keys work you need to assign keycode to them.
 
+keycodes depend on the byte sequence sent to the kernel when pressing a key
+
+Which in turn - depends on the firmware of the keyboard... 
+
+So different devices may have different keycodes for odd/unusual keys or keymaps. 
+
+To figure out which keycodes have to be added to the kernels map? 
+Practically - 
+you need;
+- A list of the keycodes sent by a device
+    - filtered by all standard keys
+- Associations between remaining keycodes and keys.
+
+- Those can be auto generated using a hardware database, and we have a few sources for those, that being:
+- from the kernel source directly
+- from your keyboards firmware directly
+- from systemd-udev
+- from LVFS
+- fwupd
+- and... one source I don't remember off the top of my head? maybe add it later. 
+
 
 You can generate proper setkeycodes commands from udev's sources with ``get-keys.awk`` script. like::
 
@@ -126,7 +147,7 @@ You can generate proper setkeycodes commands from udev's sources with ``get-keys
 
 To make life easier, ``keymap`` dir contain already generated scripts from udev-182's keymaps files. All what you need is to put ``/opt/mdev/keymaps/NAME.sh`` into one of your startup scripts.
 
-Preserve interfaces names
+Preserve/rename interfaces names
 =========================
 Mdev does not provide bulitin support for renaming NICs.
 
@@ -140,8 +161,17 @@ from:
     - original iproute2 
 or 
     - busybox's iproute2 
-`sesettle-nics` creates `/etc/mactab` file of
-detected
-- eth* 
-- wlan*, ath*, wifi*, ra* and usb* interfaces. Any other is ignored, you need to edit this file by hand if you wish add other names.
 
+`sesettle-nics` creates a file 
+`/etc/mactab`
+consisting of detected interfaces
+of the following types:
+   - eth* 
+   - wlan*
+   - ath*
+   - wifi*
+   - ra*
+   - usb*
+
+Any other is ignored, you need to edit the `settle-nics` script if you wish add other names. 
+mdev can trigger the nameif command on any of these devices.
