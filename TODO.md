@@ -1,2 +1,3 @@
 - Support GPT's PARTUUID and PARTLABEL in storage helper.
 - Reduce proc-bus-usb (should be dev-bus-usb anyway) as we will have full path where to store device nodes anyway.
+[Uevent Helper](./notes/Uevent_helper.md)
