@@ -59,36 +59,6 @@ but there may be a need/case for adding dedicated scripts for zvols or btrfs fil
 
 
 
-## ORIGINAL INSTALL GUIDE DONT FOLLOW
-
-
-- Clone repo as root to /opt/mdev::
-
-        git clone https://github.com/removed-user/mdev-like-a-boss.git /opt/mdev
-
-- Copy `/opt/mdev/mdev.init` to `/etc/init.d/mdev`, replace the original one if exist, add exec bit and add to sysinit runlevel::
-        
-        cp /opt/mdev/mdev.init /etc/init.d/mdev
-        chmod 700 /etc/init.d/mdev
-        rc-update add mdev sysinit
-
-- Remove udev from sysinit runlevel (it can be udev or udevd, depends if Gentoo or Funtoo)::
-
-        rc-update del udev sysinit
-
-- Copy or symlink ``/opt/mdev/mdev.conf`` to ``/etc/mdev.conf``::
-
-        ln -sf /opt/mdev/mdev.conf /etc/mdev.conf
-
-- Now you can test mdev.
-
-
-
-
-
-Xorg
-====
-The input configuration is not the same as with evdev, we will no longer use 'InputClass' but 'InputDevice' sections. You propably do not need ``xorg.conf`` at all. Create ``/etc/X11/xorg.conf.d/`` and copy content of the ``/opt/mdev/xorg.conf.d/`` there. Then adjust the config files as you wish.
 
 Keymaps
 =======
