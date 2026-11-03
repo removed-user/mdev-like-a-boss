@@ -1,6 +1,6 @@
-# ================
-# mdev like a boss
-# ================
+> ================
+> mdev like a boss
+> ================
 
 A stash for notes, scripts and configs
 for systems running `mdev` as a `udev` replacement.
@@ -55,10 +55,6 @@ mdev was so reliable - that I don't even remember
 but there may be a need/case for adding dedicated scripts for zvols or btrfs filesystem devices to be treated differently from a standard partitioned device. 
 
 2nd
-
-
-
-
 
 Keymaps
 =======
