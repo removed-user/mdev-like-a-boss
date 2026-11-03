@@ -1,4 +1,11 @@
 #!/sbin/runscript
+
+#FIXME: runscript ebegin and eend are rc-init conventions
+#FIXME: create a dash compatible Wrapper shell script to replace them with 
+
+
+#FIXME: Also replace /dev/.sysinit example files with something else
+
 depend()
 {
 	provide dev
