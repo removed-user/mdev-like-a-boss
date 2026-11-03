@@ -8,21 +8,33 @@ Quickstart
 ==========
 Gentoo-based system as example.
 
-ebuild-based install
---------------------
-
-Add foo-overlay via layman and install ``mdev-bb`` and ``mdev-like-a-boss`` packages, then follow messages after instalation to disable devfs and possible udev scripts.
-
 Manual install
 --------------
 
-.. important:: By design devel branch and non-tagged master head supposed to work with latest busybox's mdev. If you want to use older versions, like prior to 1.21 then make sure to use tags, like 20121223.
+... dont. It hasnt been updated since 2012. 
+It's not ready yet. 
+
+Apparently I patched the HELL out of my version of mdev. 
+
+So, on trying to move to a reproducible setup, I found out all over again how much I hate udev...
+
+AKA: This repo has a... somewhat long way to go before its ready.
+
+But - is intended to contain the reusable scripts and logic for using mdev on groups/collections of device types. 
+Ie:
+hotplugging functions and general utility. 
+
+Naturally there will be a bit of overlap between that and coldplug scripts 
+
+coldplug scripts will likely be in a seperate repo, possibly copied here as a submodule, and I may rename the project - but keep mdev-like-a-boss in the description to make it easier for anyone else who liked using an mdev setup and needs help setting it up.
+
+all storage items under /dev/disk/by-*
+all usb device nodes
+
 
 - Clone repo as root to /opt/mdev::
 
         git clone https://github.com/slashbeast/mdev-like-a-boss.git /opt/mdev
-
-- Build sys-apps/busybox with 'mdev' use flag.
 
 - Copy ``/opt/mdev/mdev.init`` to ``/etc/init.d/mdev``, replace the original one if exist, add exec bit and add to sysinit runlevel::
         
@@ -38,16 +50,42 @@ Manual install
 
         ln -sf /opt/mdev/mdev.conf /etc/mdev.conf
 
-- Now you can reboot, mdev should be up and running.
+- Now you can test mdev.
+
+
+
+
 
 Xorg
 ====
-Build xorg-server with '-udev' USEFLAG. As we no longer use udev, we can't use evdev. Install mouse and keyboard drivers, and if you use touchpad synaptics as well. 
 The input configuration is not the same as with evdev, we will no longer use 'InputClass' but 'InputDevice' sections. You propably do not need ``xorg.conf`` at all. Create ``/etc/X11/xorg.conf.d/`` and copy content of the ``/opt/mdev/xorg.conf.d/`` there. Then adjust the config files as you wish.
 
 Keymaps
 =======
-One of udev's features is config keymaps when it detect specified vendor. Mdev does not do so, mdev is for /dev, not for all-other-things. In order to make your special keys working you need to assign keycode to them. You can generate proper setkeycodes commands from udev's sources with ``get-keys.awk`` script. like::
+One of udev's features is config keymaps when it detect specified vendor.
+
+That is not the role of a device manager...
+
+Mdev does not do so, mdev is for /dev, not for all-other-things.
+
+We have a tool to manage keymaps... and its called kbd. 
+
+You feed it a keymap, and it loads that to the kernel. It should never change unless you buy a new keyboard. 
+The default (kernel provided) keymap... works 99% of the time with 98% accuracy... 
+
+That said... that 2% where you lose your macro keys is real annoying - so - thats a seperate project.
+
+With seperate tooling and... this tool and all other mdev tools its a part will 
+
+
+Knowing what keymap item to add is an odd 
+along with recognizing devices... 
+
+
+In order to make your special keys work you need to assign keycode to them.
+
+
+You can generate proper setkeycodes commands from udev's sources with ``get-keys.awk`` script. like::
 
         awk -f keymaps/get-keys.awk /usr/include/linux/input.h /PATH/TO/UDEV/SOURCE/DIR/src/keymap/keymaps/NAME
 
@@ -55,7 +93,22 @@ To make life easier, ``keymap`` dir contain already generated scripts from udev-
 
 Preserve interfaces names
 =========================
-Mdev does not provide bulitin support for renaming NICs. However there is ``settle-nics`` script which will do it using nameif (can be from net-tools or busybox) and ip (can be original iproute2 or busybox's iproute2 implementation). The settle-nics script create /etc/mactab file with detected eth*, wlan*, ath*, wifi*, ra* and usb* interfaces. Any other is ignored, you need to edit this file by hand if you wish add other names.
+Mdev does not provide bulitin support for renaming NICs.
+
+However there is `settle-nics` script which will do it using `nameif`
+from:
+    - net-tools
+    - busybox
+
+ip
+from:
+    - original iproute2 
+or 
+    - busybox's iproute2 
+`settle-nics` creates `/etc/mactab` file of
+detected
+- eth* 
+- wlan*, ath*, wifi*, ra* and usb* interfaces. Any other is ignored, you need to edit this file by hand if you wish add other names.
 
 Random notes
 ============
