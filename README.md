@@ -1,8 +1,8 @@
-> ================
-> mdev like a boss
-> ================
+# Mdev Utils
 
-A stash for notes, scripts and configs
+> Forked from: mdev-like-a-boss, mdev like a boss
+
+A notes, scripts and configs
 for systems running `mdev` as a `udev` replacement.
 
 Manual install
