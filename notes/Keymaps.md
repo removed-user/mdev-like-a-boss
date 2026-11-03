@@ -1,0 +1,4 @@
+- Strip out the keycodes and other values but only after...
+    -  sourcing a flat-text safety/default keycode file
+    - along with adding dependency on 
+         - pci.ids, usb.ids, pnp.ids, oui.txt
